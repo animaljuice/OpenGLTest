@@ -1,5 +1,5 @@
 #pragma once
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 class ShaderStage {
 	GLenum _m_type;

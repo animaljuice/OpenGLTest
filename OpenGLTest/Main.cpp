@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <iostream>
@@ -11,8 +11,6 @@ void errorHandler(int errCode, const char* errDesc) {
 int main(int argc, char* argv[])
 {
 	glfwInit();
-	gladLoadGL();
-
 	glfwSetErrorCallback(errorHandler);
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -27,11 +25,11 @@ int main(int argc, char* argv[])
 	}
 
 	glfwMakeContextCurrent(window);
+	gladLoaderLoadGL();
 
-	std::vector<std::string> vertexShaderSource;
-	vertexShaderSource.push_back("asdqwe");
+	auto vertexShaderSource = "asdqwe";
 	{
-		ShaderStage testStage(GL_VERTEX_SHADER, reinterpret_cast<const char**>(vertexShaderSource.data()->data()));
+		ShaderStage testStage(GL_VERTEX_SHADER, &vertexShaderSource);
 	}
 	
 	glClearColor(.7f, .5f, .2f, 1.f);
@@ -44,6 +42,7 @@ int main(int argc, char* argv[])
 	}
 
 	glfwDestroyWindow(window);
+	gladLoaderUnloadGL();
 	glfwTerminate();
 	return 0;
 }
